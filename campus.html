@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cambridge Institute of Technology - Fest 2026</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg,#fbc2eb,#a6c1ee,#fcd5ce);
+    color: #444;
+    scroll-behavior: smooth;
+}
+
+section {
+    padding: 80px 10%;
+}
+
+h1,h2,h3 { margin: 0; }
+
+/* ================= HEADER ================= */
+header {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(135deg,#ffd6e0,#cde7ff);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 42px;
+    color: #5a4e7c;
+}
+
+header p { margin: 10px 0; opacity: 0.8; }
+
+.hero-btn {
+    margin-top: 20px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(to right,#ffafbd,#ffc3a0);
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hero-btn:hover { transform: scale(1.1); }
+
+/* ================= NAV ================= */
+nav {
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.6);
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    text-align: center;
+}
+
+nav a {
+    color: #5a4e7c;
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover, nav a.active { color: #ff7eb3; }
+
+/* ================= SEARCH ================= */
+.search-box { text-align: center; margin: 40px 0; }
+
+.search-box input {
+    padding: 12px;
+    width: 300px;
+    border-radius: 30px;
+    border: none;
+    background: rgba(255,255,255,0.7);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    outline: none;
+}
+
+/* ================= GRID ================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* ================= PASTEL CARD ================= */
+.card {
+    background: rgba(255,255,255,0.6);
+    border-radius: 25px;
+    padding: 30px;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+}
+
+.card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #6a5acd;
+}
+
+.card p { font-size: 14px; opacity: 0.8; }
+
+.card button {
+    margin-top: 15px;
+    padding: 8px 18px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(to right,#a18cd1,#fbc2eb);
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.card button:hover { transform: scale(1.1); }
+
+/* ================= SCROLL REVEAL ================= */
+.reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ================= MODAL ================= */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.3);
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 25px;
+    margin: 10% auto;
+    width: 320px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.close { float: right; cursor: pointer; }
+
+/* ================= BACK TO TOP ================= */
+#topBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px; right: 20px;
+    padding: 10px 15px;
+    border-radius: 50%;
+    border: none;
+    background: #ffafbd;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255,255,255,0.6);
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Cambridge Institute of Technology</h1>
+<p>Annual Fest 2026 | March 10–12 | Bangalore</p>
+<p id="timer"></p>
+<button class="hero-btn" onclick="scrollToSection('technical')">Explore Events</button>
+</header>
+
+<nav>
+<a href="#cultural">Cultural</a>
+<a href="#technical">Technical</a>
+<a href="#sports">Sports</a>
+</nav>
+
+<div class="search-box">
+<input type="text" id="search" placeholder="Search Events..." onkeyup="searchEvent()">
+</div>
+
+<section id="cultural" class="reveal">
+<h2>Cultural Events</h2>
+<div class="grid">
+<div class="card">
+<h3>Dance Competition 💃</h3>
+<p>Solo & Group performances.</p>
+<button onclick="openRegister(event)">Register</button>
+</div>
+<div class="card">
+<h3>Singing 🎤</h3>
+<p>Melody battle for music lovers.</p>
+<button onclick="openRegister(event)">Register</button>
+</div>
+</div>
+</section>
+
+<section id="technical" class="reveal">
+<h2>Technical Events</h2>
+<div class="grid">
+<div class="card">
+<h3>Hackathon 🚀</h3>
+<p>24-hour coding challenge.</p>
+<button onclick="openRegister(event)">Register</button>
+</div>
+<div class="card">
+<h3>Paper Presentation 📄</h3>
+<p>Present innovative ideas.</p>
+<button onclick="openRegister(event)">Register</button>
+</div>
+</div>
+</section>
+
+<section id="sports" class="reveal">
+<h2>Fun & Sports</h2>
+<div class="grid">
+<div class="card">
+<h3>Cricket 🏏</h3>
+<p>Team tournament showdown.</p>
+<button onclick="openRegister(event)">Register</button>
+</div>
+<div class="card">
+<h3>Treasure Hunt 🗺</h3>
+<p>Clue-based adventure game.</p>
+<button onclick="openRegister(event)">Register</button>
+</div>
+</div>
+</section>
+
+<!-- Registration Modal -->
+<div id="registerModal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeRegister()">&times;</span>
+<h3>Register</h3>
+<form onsubmit="return validateForm()">
+<input type="text" id="name" placeholder="Your Name">
+<input type="text" id="email" placeholder="Your Email">
+<button type="submit">Submit</button>
+</form>
+</div>
+</div>
+
+<button id="topBtn" onclick="topFunction()">↑</button>
+
+<footer>
+<p>Contact: fest@cit.edu | 9876543210</p>
+</footer>
+
+<script>
+
+/* Countdown */
+const festDate = new Date("March 10, 2026 09:00:00").getTime();
+setInterval(()=>{
+let now = new Date().getTime();
+let distance = festDate - now;
+let days = Math.floor(distance/(1000*60*60*24));
+document.getElementById("timer").innerHTML = days + " Days Left!";
+},1000);
+
+/* Search */
+function searchEvent(){
+let input=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".card").forEach(card=>{
+card.style.display=card.innerText.toLowerCase().includes(input)?"block":"none";
+});
+}
+
+/* Smooth Scroll */
+function scrollToSection(id){
+document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+/* 3D Tilt */
+document.querySelectorAll(".card").forEach(card=>{
+card.addEventListener("mousemove",(e)=>{
+let rect=card.getBoundingClientRect();
+let x=e.clientX-rect.left;
+let y=e.clientY-rect.top;
+let centerX=rect.width/2;
+let centerY=rect.height/2;
+let rotateX=-(y-centerY)/15;
+let rotateY=(x-centerX)/15;
+card.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+card.addEventListener("mouseleave",()=>{
+card.style.transform="rotateX(0) rotateY(0)";
+});
+});
+
+/* Scroll Reveal */
+function revealOnScroll(){
+document.querySelectorAll(".reveal").forEach(el=>{
+let windowHeight=window.innerHeight;
+let revealTop=el.getBoundingClientRect().top;
+if(revealTop<windowHeight-100){
+el.classList.add("active");
+}
+});
+}
+window.addEventListener("scroll",revealOnScroll);
+
+/* Registration */
+function openRegister(e){
+e.stopPropagation();
+document.getElementById("registerModal").style.display="block";
+}
+function closeRegister(){
+document.getElementById("registerModal").style.display="none";
+}
+function validateForm(){
+let name=document.getElementById("name").value.trim();
+let email=document.getElementById("email").value.trim();
+let pattern=/^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+if(name===""){alert("Name required");return false;}
+if(!email.match(pattern)){alert("Valid email required");return false;}
+alert("Registration Successful!");
+closeRegister();
+return false;
+}
+
+/* Back to Top */
+window.onscroll=function(){
+document.getElementById("topBtn").style.display=
+document.documentElement.scrollTop>200?"block":"none";
+}
+function topFunction(){
+document.documentElement.scrollTop=0;
+}
+
+</script>
+
+</body>
+</html>

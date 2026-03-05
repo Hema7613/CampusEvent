@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIT Annual Fest 2026</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#fbc2eb,#a6c1ee,#fcd5ce);
+color:#444;
+scroll-behavior:smooth;
+transition:0.4s;
+}
+
+/* DARK MODE */
+
+.dark{
+background:#1e1e2f;
+color:white;
+}
+
+.dark nav{background:#2c2c40;}
+.dark .card-overlay{background:rgba(0,0,0,0.6);}
+
+/* HEADER */
+
+header{
+text-align:center;
+padding:80px 20px;
+background:linear-gradient(135deg,#ffd6e0,#cde7ff);
+}
+
+header h1{font-size:40px;color:#5a4e7c;}
+
+#timer{margin-top:10px;font-weight:bold;color:#6a5acd;}
+
+/* DARK MODE BUTTON */
+
+.toggle-btn{
+position:absolute;
+top:20px;
+right:20px;
+padding:8px 14px;
+border:none;
+border-radius:20px;
+background:#6a5acd;
+color:white;
+cursor:pointer;
+}
+
+/* NAVBAR */
+
+nav{
+position:sticky;
+top:0;
+background:rgba(255,255,255,0.7);
+padding:15px;
+text-align:center;
+backdrop-filter:blur(10px);
+}
+
+nav a{
+margin:0 20px;
+text-decoration:none;
+font-weight:600;
+color:#5a4e7c;
+}
+
+/* SECTION */
+
+section{padding:70px 10%;}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+margin-top:30px;
+}
+
+/* CARD */
+
+.card{
+height:200px;
+border-radius:15px;
+overflow:hidden;
+position:relative;
+cursor:pointer;
+background-size:cover;
+background-position:center;
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+.card-overlay{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+color:white;
+text-align:center;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+/* BUTTON */
+
+.card button{
+margin-top:10px;
+padding:8px 16px;
+border:none;
+border-radius:20px;
+background:linear-gradient(to right,#a18cd1,#fbc2eb);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* MODAL */
+
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+}
+
+.modal-content{
+background:white;
+padding:25px;
+margin:8% auto;
+width:350px;
+border-radius:20px;
+}
+
+.close{float:right;cursor:pointer;font-size:20px;}
+
+/* BACK TO TOP */
+
+#topBtn{
+display:none;
+position:fixed;
+bottom:20px;
+right:20px;
+padding:12px 15px;
+border:none;
+border-radius:50%;
+background:#ff7eb3;
+color:white;
+cursor:pointer;
+}
+
+footer{
+text-align:center;
+padding:20px;
+background:rgba(255,255,255,0.6);
+}
+
+</style>
+</head>
+
+<body>
+
+<button class="toggle-btn" onclick="toggleMode()">🌙</button>
+
+<header>
+<h1>Cambridge Institute of Technology</h1>
+<p>Annual Fest 2026 | March 10-12</p>
+<div id="timer"></div>
+</header>
+
+<nav>
+<a href="#cultural">Cultural</a>
+<a href="#technical">Technical</a>
+<a href="#sports">Sports</a>
+</nav>
+
+<!-- CULTURAL -->
+
+<section id="cultural">
+<h2>Cultural Events</h2>
+
+<div class="grid">
+
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad');" onclick="showEvent('dance')">
+<div class="card-overlay">
+<h3>Dance Competition</h3>
+<button onclick="openRegister(event)">Register</button>
+</div>
+</div>
+
+<div class="card" style="background-image:url('https://tse3.mm.bing.net/th/id/OIP.R6Jp9lNsx9F-n4ilqY3XfAHaE7?w=626&h=417&rs=1&pid=ImgDetMain&o=7&rm=3');" onclick="showEvent('singing')">
+<div class="card-overlay">
+<h3>Singing</h3>
+<button onclick="openRegister(event)">Register</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- TECH -->
+
+<section id="technical">
+<h2>Technical Events</h2>
+
+<div class="grid">
+
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c');" onclick="showEvent('hackathon')">
+<div class="card-overlay">
+<h3>Hackathon</h3>
+<button onclick="openRegister(event)">Register</button>
+</div>
+</div>
+
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b');" onclick="showEvent('paper')">
+<div class="card-overlay">
+<h3>Paper Presentation</h3>
+<button onclick="openRegister(event)">Register</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- SPORTS -->
+
+<section id="sports">
+<h2>Fun & Sports</h2>
+
+<div class="grid">
+
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1502904550040-7534597429ae');" onclick="showEvent('cricket')">
+<div class="card-overlay">
+<h3>Cricket</h3>
+<button onclick="openRegister(event)">Register</button>
+</div>
+</div>
+
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1511578314322-379afb476865');" onclick="showEvent('treasure')">
+<div class="card-overlay">
+<h3>Treasure Hunt</h3>
+<button onclick="openRegister(event)">Register</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- EVENT MODAL -->
+
+<div id="eventModal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeEvent()">&times;</span>
+<div id="eventInfo"></div>
+</div>
+</div>
+
+<!-- REGISTER MODAL -->
+
+<div id="registerModal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeRegister()">&times;</span>
+
+<h3>Register</h3>
+
+<form onsubmit="return validateForm()">
+<input type="text" id="name" placeholder="Your Name"><br><br>
+<input type="text" id="email" placeholder="Your Email"><br><br>
+<button type="submit">Submit</button>
+</form>
+
+</div>
+</div>
+
+<button id="topBtn">↑</button>
+
+<footer>
+<p>Contact: fest@cit.edu</p>
+</footer>
+
+<script>
+
+/* DARK MODE */
+
+function toggleMode(){
+document.body.classList.toggle("dark");
+}
+
+/* COUNTDOWN */
+
+const festDate=new Date("March 10, 2026 09:00:00").getTime();
+
+setInterval(function(){
+
+let now=new Date().getTime();
+let distance=festDate-now;
+
+let days=Math.floor(distance/(1000*60*60*24));
+let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+
+document.getElementById("timer").innerHTML=
+days+" days "+hours+" hours remaining";
+
+},1000);
+
+/* EVENT DETAILS */
+
+function showEvent(event){
+
+let events={
+dance:`<h2>Dance Competition</h2><p>Prize ₹10,000</p>`,
+singing:`<h2>Singing</h2><p>Prize ₹8,000</p>`,
+hackathon:`<h2>Hackathon</h2><p>Prize ₹25,000</p>`,
+paper:`<h2>Paper Presentation</h2><p>Prize ₹15,000</p>`,
+cricket:`<h2>Cricket</h2><p>Prize ₹20,000</p>`,
+treasure:`<h2>Treasure Hunt</h2><p>Prize ₹12,000</p>`
+};
+
+document.getElementById("eventInfo").innerHTML=events[event];
+document.getElementById("eventModal").style.display="block";
+}
+
+function closeEvent(){
+document.getElementById("eventModal").style.display="none";
+}
+
+/* REGISTER */
+
+function openRegister(e){
+e.stopPropagation();
+document.getElementById("registerModal").style.display="block";
+}
+
+function closeRegister(){
+document.getElementById("registerModal").style.display="none";
+}
+
+function validateForm(){
+alert("Registration successful!");
+closeRegister();
+return false;
+} 
+
+/* BACK TO TOP */
+
+let topBtn=document.getElementById("topBtn");
+
+window.onscroll=function(){
+if(document.documentElement.scrollTop>300){
+topBtn.style.display="block";
+}else{
+topBtn.style.display="none";
+}
+};
+
+topBtn.onclick=function(){
+document.documentElement.scrollTop=0;
+}
+
+</script>
+
+</body>
+</html>

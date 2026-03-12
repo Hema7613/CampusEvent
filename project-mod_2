@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIT Annual Fest 2026</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#fbc2eb,#a6c1ee,#fcd5ce);
+color:#444;
+scroll-behavior:smooth;
+transition:0.4s;
+}
+
+/* DARK MODE */
+.dark{
+background:#1e1e2f;
+color:white;
+}
+.dark header{background:#2c2c40;}
+.dark nav{background:rgba(0,0,0,0.7);}
+.dark .card-overlay{background:rgba(0,0,0,0.6);}
+.dark .map-box iframe{filter:brightness(0.8);}
+.dark .modal-content{background:#2c2c40;color:white;}
+.dark .chat-body{background:#2c2c40;color:white;}
+.dark .comment{background:rgba(255,255,255,0.1);}
+
+/* HEADER */
+header{
+text-align:center;
+padding:100px 20px;
+background:linear-gradient(135deg,#6a11cb,#2575fc,#ff7eb3);
+background-size:300% 300%;
+animation:gradientMove 8s ease infinite;
+color:white;
+transition:0.4s;
+}
+header h1{font-size:42px;}
+#timer{margin-top:10px;font-weight:bold;color:white;}
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* DARK MODE TOGGLE BUTTON */
+.toggle-btn{
+position:absolute;
+top:20px;
+right:20px;
+padding:8px 14px;
+border:none;
+border-radius:20px;
+background:#6a5acd;
+color:white;
+cursor:pointer;
+z-index:1000;
+}
+
+/* NAVBAR */
+nav{
+position:sticky;
+top:0;
+background:rgba(255,255,255,0.8);
+padding:15px;
+text-align:center;
+backdrop-filter:blur(10px);
+transition:0.4s;
+}
+nav a{
+margin:0 20px;
+text-decoration:none;
+font-weight:600;
+color:#5a4e7c;
+}
+
+/* SECTION */
+section{padding:70px 10%;}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+margin-top:30px;
+}
+
+/* CARD */
+.card{
+height:200px;
+border-radius:15px;
+overflow:hidden;
+position:relative;
+cursor:pointer;
+background-size:cover;
+background-position:center;
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+transition:0.3s;
+}
+.card-overlay{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+color:white;
+transition:0.4s;
+}
+.card:hover{transform:scale(1.05);}
+.card button{
+margin-top:10px;
+padding:8px 16px;
+border:none;
+border-radius:20px;
+background:linear-gradient(to right,#a18cd1,#fbc2eb);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* CAMPUS MAP */
+#campus-map{
+text-align:center;
+background:linear-gradient(135deg,#e0c3fc,#8ec5fc);
+border-radius:20px;
+padding:50px;
+position:relative;
+transition:0.4s;
+}
+.map-box{
+max-width:900px;
+margin:auto;
+margin-top:30px;
+position:relative;
+}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+overflow-y:auto;
+z-index:1000;
+}
+.modal-content{
+background:white;
+padding:25px;
+margin:5% auto;
+width:400px;
+border-radius:20px;
+transition:0.4s;
+}
+.close{float:right;cursor:pointer;font-size:22px;}
+
+/* QR */
+.qr{text-align:center;margin-top:15px;}
+
+/* COMMENT SECTION */
+.comments{
+margin-top:20px;
+max-height:200px;
+overflow-y:auto;
+border-top:1px solid #ccc;
+padding-top:10px;
+}
+.comment{
+background:rgba(0,0,0,0.05);
+margin:5px 0;
+padding:5px 10px;
+border-radius:15px;
+}
+.new-comment{display:flex;margin-top:10px;}
+.new-comment input{
+flex:1;padding:8px 10px;border-radius:20px;border:1px solid #ccc;outline:none;
+}
+.new-comment button{
+padding:8px 16px;margin-left:5px;border:none;border-radius:20px;background:#6a5acd;color:white;cursor:pointer;
+}
+
+/* MAP PINS */
+.pin{
+position:absolute;
+font-size:26px;
+cursor:pointer;
+animation:bounce 1.5s infinite;
+}
+@keyframes bounce{
+0%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+100%{transform:translateY(0)}
+}
+
+/* CHATBOT STYLES */
+#chatbotBtn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#6a5acd;
+color:white;
+border:none;
+padding:15px 20px;
+border-radius:50px;
+cursor:pointer;
+z-index:1001;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+#chatbotWindow{
+display:none;
+position:fixed;
+bottom:80px;
+right:20px;
+width:300px;
+max-height:400px;
+background:white;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+flex-direction:column;
+overflow:hidden;
+z-index:1002;
+transition:0.3s;
+}
+#chatbotHeader{
+background:#6a5acd;
+color:white;
+padding:10px;
+font-weight:bold;
+text-align:center;
+}
+.chat-body{
+padding:10px;
+flex:1;
+overflow-y:auto;
+height:250px;
+background:#f1f1f1;
+}
+.chat-body p{margin:5px 0;padding:5px 10px;border-radius:15px;max-width:80%;}
+.user-msg{background:#6a5acd;color:white;margin-left:auto;}
+.bot-msg{background:#ccc;color:black;margin-right:auto;}
+.chat-input{display:flex;padding:10px;border-top:1px solid #ccc;}
+.chat-input input{flex:1;padding:8px 10px;border-radius:20px;border:1px solid #ccc;outline:none;}
+.chat-input button{padding:8px 12px;margin-left:5px;border:none;border-radius:20px;background:#6a5acd;color:white;cursor:pointer;}
+.dark .chat-body{background:#2c2c40;color:white;}
+.dark .chat-input input{background:#333;color:white;border:1px solid #555;}
+.dark #chatbotWindow{background:#2c2c40;}
+.dark .bot-msg{background:#555;color:white;}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:20px;
+background:rgba(255,255,255,0.7);
+transition:0.4s;
+}
+
+</style>
+</head>
+<body>
+
+<!-- DARK MODE TOGGLE -->
+<button class="toggle-btn" onclick="toggleMode()">🌙</button>
+
+<header>
+<h1>Cambridge Institute of Technology</h1>
+<p>Annual Fest 2026 | March 10-12</p>
+<div id="timer"></div>
+</header>
+
+<nav>
+<a href="#cultural">Cultural</a>
+<a href="#technical">Technical</a>
+<a href="#sports">Sports</a>
+<a href="#campus-map">Campus Map</a>
+</nav>
+
+<!-- CULTURAL -->
+<section id="cultural">
+<h2>Cultural Events</h2>
+<div class="grid">
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad');">
+<div class="card-overlay">
+<h3>Dance Competition</h3>
+<button onclick="openEvent('Dance Competition')">Register</button>
+</div>
+</div>
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1511379938547-c1f69419868d');">
+<div class="card-overlay">
+<h3>Singing</h3>
+<button onclick="openEvent('Singing Competition')">Register</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- TECH -->
+<section id="technical">
+<h2>Technical Events</h2>
+<div class="grid">
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c');">
+<div class="card-overlay">
+<h3>Hackathon</h3>
+<button onclick="openEvent('Hackathon')">Register</button>
+</div>
+</div>
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b');">
+<div class="card-overlay">
+<h3>Paper Presentation</h3>
+<button onclick="openEvent('Paper Presentation')">Register</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SPORTS -->
+<section id="sports">
+<h2>Fun & Sports</h2>
+<div class="grid">
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1502904550040-7534597429ae');">
+<div class="card-overlay">
+<h3>Cricket</h3>
+<button onclick="openEvent('Cricket')">Register</button>
+</div>
+</div>
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1511578314322-379afb476865');">
+<div class="card-overlay">
+<h3>Treasure Hunt</h3>
+<button onclick="openEvent('Treasure Hunt')">Register</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CAMPUS MAP -->
+<section id="campus-map">
+<h2>Interactive Campus Map</h2>
+<p>Find the event locations inside campus</p>
+<div class="map-box">
+<iframe src="https://www.google.com/maps?q=Cambridge+Institute+of+Technology+KR+Puram+Bangalore&output=embed" width="100%" height="400" style="border:none;border-radius:15px;"></iframe>
+<div class="pin" style="top:42%;left:45%" onclick="openEvent('Dance Competition')">📍</div>
+<div class="pin" style="top:55%;left:60%" onclick="openEvent('Hackathon')">📍</div>
+<div class="pin" style="top:70%;left:35%" onclick="openEvent('Cricket')">📍</div>
+<div class="pin" style="top:30%;left:70%" onclick="openEvent('Singing Competition')">📍</div>
+<div class="pin" style="top:65%;left:50%" onclick="openEvent('Treasure Hunt')">📍</div>
+</div>
+</section>
+
+<!-- EVENT MODAL -->
+<div id="eventModal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeEvent()">&times;</span>
+<h3 id="eventTitle"></h3>
+<p>Scan QR to register for this event:</p>
+<div class="qr"><img id="eventQR" width="140"></div>
+<div class="comments" id="commentsContainer"></div>
+<div class="new-comment">
+<input type="text" id="newCommentInput" placeholder="Write a comment...">
+<button onclick="postComment()">Post</button>
+</div>
+</div>
+</div>
+
+<!-- CHATBOT -->
+<button id="chatbotBtn" onclick="toggleChat()">Chat 🤖</button>
+<div id="chatbotWindow">
+<div id="chatbotHeader">Fest Assistant</div>
+<div class="chat-body" id="chatBody"></div>
+<div class="chat-input">
+<input type="text" id="chatInput" placeholder="Type your question...">
+<button onclick="sendMessage()">Send</button>
+</div>
+</div>
+
+<footer>
+<p>Contact: fest@cit.edu</p>
+</footer>
+
+<script>
+/* DARK MODE */
+function toggleMode(){document.body.classList.toggle("dark");}
+
+/* COUNTDOWN */
+const festDate=new Date("March 10, 2026 09:00:00").getTime();
+setInterval(function(){
+let now=new Date().getTime();
+let distance=festDate-now;
+let days=Math.floor(distance/(1000*60*60*24));
+let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+document.getElementById("timer").innerHTML=days+" days "+hours+" hours remaining";
+},1000);
+
+/* EVENT MODAL & COMMENTS */
+let commentsData = {};
+function openEvent(eventName){
+document.getElementById("eventTitle").innerText = eventName;
+let qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(eventName + " Registration Form");
+document.getElementById("eventQR").src = qrUrl;
+let commentsContainer = document.getElementById("commentsContainer");
+commentsContainer.innerHTML = '';
+if(commentsData[eventName]){
+commentsData[eventName].forEach(c=>{
+let div = document.createElement('div');
+div.className = 'comment';
+div.textContent = c;
+commentsContainer.appendChild(div);
+});
+}
+document.getElementById("eventModal").setAttribute('data-current-event', eventName);
+document.getElementById("eventModal").style.display = "block";
+}
+function closeEvent(){document.getElementById("eventModal").style.display = "none";}
+function postComment(){
+let input = document.getElementById("newCommentInput");
+let commentText = input.value.trim();
+if(!commentText) return;
+let currentEvent = document.getElementById("eventModal").getAttribute('data-current-event');
+if(!commentsData[currentEvent]) commentsData[currentEvent] = [];
+commentsData[currentEvent].push(commentText);
+let commentsContainer = document.getElementById("commentsContainer");
+let div = document.createElement('div');
+div.className = 'comment';
+div.textContent = commentText;
+commentsContainer.appendChild(div);
+input.value = '';
+commentsContainer.scrollTop = commentsContainer.scrollHeight;
+}
+
+/* CHATBOT */
+function toggleChat(){
+let chatWindow=document.getElementById("chatbotWindow");
+chatWindow.style.display=(chatWindow.style.display==='flex'?'none':'flex');
+}
+function sendMessage(){
+let input=document.getElementById("chatInput");
+let msg=input.value.trim();
+if(!msg) return;
+let chatBody=document.getElementById("chatBody");
+let pUser=document.createElement('p');
+pUser.className='user-msg';
+pUser.textContent=msg;
+chatBody.appendChild(pUser);
+let pBot=document.createElement('p');
+pBot.className='bot-msg';
+pBot.textContent=getBotResponse(msg);
+chatBody.appendChild(pBot);
+chatBody.scrollTop=chatBody.scrollHeight;
+input.value='';
+}
+function getBotResponse(msg){
+msg=msg.toLowerCase();
+if(msg.includes("dance")) return "Dance Competition is on March 10th at Main Stage. Register using QR.";
+if(msg.includes("singing")) return "Singing event is on March 11th at Main Stage. Scan the QR to register.";
+if(msg.includes("hackathon")) return "Hackathon starts March 10th at Lab Block. Use QR to register.";
+if(msg.includes("cricket")) return "Cricket Tournament is on March 12th at Sports Ground.";
+if(msg.includes("location")) return "Campus Map is under 'Campus Map' section. Click pins to view event location.";
+if(msg.includes("registration")) return "Click any event and scan the QR code to register.";
+return "Hello! Ask me about events, locations, or registration.";
+}
+</script>
+
+</body>
+</html>
